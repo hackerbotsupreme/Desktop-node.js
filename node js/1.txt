@@ -1,0 +1,122 @@
+About Node.js®
+As an asynchronous event-driven JavaScript runtime, Node.js is designed to build scalable network applications. In the following "hello world" example, many connections can be handled concurrently. Upon each connection, the callback is fired, but if there is no work to be done, Node.js will sleep.
+
+const http = require('http');
+ 
+const hostname = '127.0.0.1';
+const port = 3000;
+ 
+const server = http.createServer((req, res) => {
+  res.statusCode = 200;
+  res.setHeader('Content-Type', 'text/plain');
+  res.end('Hello World');
+});
+ 
+server.listen(port, hostname, () => {
+  console.log(`Server running at http://${hostname}:${port}/`);
+});
+This is in contrast to today's more common concurrency model, in which OS threads are employed. Thread-based networking is relatively inefficient and very difficult to use. Furthermore, users of Node.js are free from worries of dead-locking the process, since there are no locks. Almost no function in Node.js directly performs I/O, so the process never blocks except when the I/O is performed using synchronous methods of Node.js standard library. Because nothing blocks, scalable systems are very reasonable to develop in Node.js.
+
+If some of this language is unfamiliar, there is a full article on Blocking vs. Non-Blocking.
+
+Node.js is similar in design to, and influenced by, systems like Ruby's Event Machine and Python's Twisted. Node.js takes the event model a bit further. It presents an event loop as a runtime construct instead of as a library. In other systems, there is always a blocking call to start the event-loop. Typically, behavior is defined through callbacks at the beginning of a script, and at the end a server is started through a blocking call like EventMachine::run(). In Node.js, there is no such start-the-event-loop call. Node.js simply enters the event loop after executing the input script. Node.js exits the event loop when there are no more callbacks to perform. This behavior is like browser JavaScript — the event loop is hidden from the user.
+
+HTTP is a first-class citizen in Node.js, designed with streaming and low latency in mind. This makes Node.js well suited for the foundation of a web library or framework.
+
+Node.js being designed without threads doesn't mean you can't take advantage of multiple cores in your environment. Child processes can be spawned by using our child_process.fork() API, and are designed to be easy to communicate with. Built upon that same interface is the cluster module, which allows you to share sockets between processes to enable load balancing over your cores.
+////////////////////////////////////////////////////////////////////////////////////////
+
+is nodejs is a package ?
+Every Node. js application is a package and should have a package. json file
+
+I am new to Node.js. What is the difference between a "package" and a "module" in Node.js?
+
+
+source 
+https://stackoverflow.com/questions/20008442/difference-between-a-module-and-a-package-in-node-js#:~:text=Every%20Node.,json%20file.
+
+
+82
+
+Modules are libraries for Node.js. See the below excerpt from the API:
+
+Node.js has a simple module loading system. In Node.js, files and modules are in one-to-one correspondence.
+
+Examples of modules:
+
+Circle.js
+Rectangle.js
+Square.js
+A package is one or more modules (libraries) grouped (or packaged) together. These are commonly used by other packages or a project of your own. Node.js uses a package manager, where you can find and install thousands of packages.
+
+Example of a package:
+
+Shapes             <- Package name
+  - Circle.js      <-
+  - Rectangle.js   <- Modules that belong to the Shapes package
+  - Square.js      <-
+Essentially, you could install the package, Shapes, and have access to the Circle, Rectangle, and Square modules.
+
+
+17
+
+A module is a single JavaScript file that has some reasonable functionality.
+
+A package is a directory with one or more modules inside of it and a package.json file which has metadata about the package.
+
+A package can be very simple for example, underscore just has a single JavaScript file (we see two versions of it, regular and minified version and package.json)
+
+open@open-PC MINGW64 ~/Desktop/module-package-demo/node_modules/underscore
+$ dir
+LICENSE       README.md      underscore-min.js
+package.json  underscore.js  underscore-min.js.map
+Whereas a more complex package like Express has one JavaScript file in the root, but inside its sub-directories has quite a few more JavaScript files and more within sub-directories of that
+
+open@open-PC MINGW64 ~/Desktop/module-package-demo/node_modules/express
+$ dir
+History.md  index.js  lib  LICENSE  package.json  Readme.md
+Now it's very common for people to refer to a package as a module.
+
+
+What is NPM?
+NPM is a package manager for Node.js packages, or modules if you like.
+
+www.npmjs.com hosts thousands of free packages to download and use.
+
+The NPM program is installed on your computer when you install Node.js
+
+/////////////////////////////////////////////////
+explore more on 
+https://www.w3schools.com/nodejs/nodejs_npm.asp
+
+
+What is a Package?
+A package in Node.js contains all the files you need for a module.
+
+Modules are JavaScript libraries you can include in your project.
+
+Download a Package
+Downloading a package is very easy.
+
+Open the command line interface and tell NPM to download the package you want.
+
+I want to download a package called "upper-case":
+
+Download "upper-case":
+
+C:\Users\Your Name>npm install upper-case
+Now you have downloaded and installed your first package!
+
+NPM creates a folder named "node_modules", where the package will be placed. All packages you install in the future will be placed in this folder.
+
+My project now has a folder structure like this:
+
+C:\Users\My Name\node_modules\upper-case
+
+
+///////////////////////////////////////////////////////////////
+
+
+learn js with 
+https://learnjavascript.online/app.html
+
